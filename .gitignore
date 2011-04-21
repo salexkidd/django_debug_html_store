@@ -1,0 +1,17 @@
+*.db
+*.log
+*.pyc
+*~
+*.bak
+*.tmp
+.DS_Store
+*/.DS_Store
+*\#*
+.fuse_hidden*
+*.swp
+*.dot
+debug_log*
+*.csr
+datastore
+dist/*
+django_debug_html_store.egg-info
