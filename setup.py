@@ -42,7 +42,7 @@ setup(
     name             = django_debug_html_store.__name__,
     version          = django_debug_html_store.__version__,
     py_modules       = ['django_debug_html_store'],
-    description      = description,
+    description      = short_description,
     long_description = long_description, 
     author           = django_debug_html_store.__author__,
     author_email     = 'salexkidd@gmail.com',
