@@ -4,9 +4,6 @@ django_debug_html_store by salexkidd (http://twitter.com/salexkidd)
 
 .. toctree::
 
-.. warning::
-    django_debug_html_store is Beta Version!
-
 Introduction
 ____________
 django_debug_html_store is a Django debug tool.
