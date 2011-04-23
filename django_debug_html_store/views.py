@@ -9,11 +9,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 import random
 
+
 def read_response(request, **kwargs):
     """
     Read Debug HTML File
     """
-    
     if getattr(settings, 'DEBUG'):
         pass
     else:
@@ -22,7 +22,7 @@ def read_response(request, **kwargs):
     #Don't store read_response view response
     setattr(request, 'NoStoreResponse', True)
     store_res = ''
-   
+
     if kwargs.get('ip_addr'):
         ip_addr = kwargs.get('ip_addr')
     else:
@@ -33,8 +33,8 @@ def read_response(request, **kwargs):
         html_filename = getattr(settings, 'DEBUG_STORE_HTML_FILE')
         if html_filename is None:
             return response
-        
-        html_filename+= "_%s" % (ip_addr.replace('.', '_'))
+
+        html_filename += "_%s" % (ip_addr.replace('.', '_'))
 
         try:
             store_res = open(html_filename, 'r').read()
@@ -43,9 +43,8 @@ def read_response(request, **kwargs):
         except Exception, e:
             error_res = "django_debug_html_store Error: %s" % (e),
             return HttpResponse(error_res, status=200)
-    
-    elif debug_store_type == 'cache':
 
+    elif debug_store_type == 'cache':
         cache_name = 'DJANGO_HTML_STORE_MIDDLEWARE_CACHE_%s' % (ip_addr)
         cache_str = cache.get(cache_name)
         if cache_str:
@@ -55,12 +54,14 @@ def read_response(request, **kwargs):
 
     return HttpResponse(store_res, status=200)
 
+
 def ret_test_http_response(request, **kwargs):
     """
     test response function (HttpResponse)
     """
-    randint = random.randint(1,10000)
+    randint = random.randint(1, 10000)
     return HttpResponse("Random int:%s" % (randint), status=200)
+
 
 def ret_test_redirect_response(request, **kwargs):
     """
