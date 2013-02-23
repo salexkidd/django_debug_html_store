@@ -9,7 +9,9 @@ long_description = """\
 Requirements
 ------------
 * Python 2.5 or later (not support 3.x)
-* Django 1.1 or later (Support 1.3 final)
+* Django 1.1 or later (Support 1.4)
+(maybe!)
+
 Features
 --------
 * nothing
