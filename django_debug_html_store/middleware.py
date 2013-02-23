@@ -1,56 +1,58 @@
 #-*- coding:utf-8 -*-
-
 """
-django_debug_html_store
+django_debug_html_store middleware Module
+
 """
 
 from django.conf import settings
 from django.core.cache import cache
-from django.http import HttpResponse, HttpResponseRedirect
-import types
-import logging
 import re
-from datetime import datetime
 
-logger = logging.getLogger('')
+try:
+    from django.utils.timezone import now
+except ImportError:
+    from datetime.datetime import now
+
+
 EXCLUDE_REGEX = "^.+\.(" + 'css|js|ico|jpg|png|gif' + ')$'
 
 
-class HtmlStoreMiddleware(object):
+class DebugStoreMiddleware(object):
     """
-    HtmlStore Middleware
+    HTML Store Middleware
     """
     def process_response(self, request, response):
         """
         Catch & Store response to file or cache.
         """
-        if hasattr(request, 'NoStoreResponse'):
-            if request.NoStoreResponse == True:
+        if hasattr(request, 'do_not_store_response'):
+            if request.do_not_store_response:
                 return response
 
         if re.search(EXCLUDE_REGEX, request.path):
             return response
 
-        #Check DEBUG Flg
-        try:
-            if hasattr(settings, 'DEBUG') is False or \
-                    settings.DEBUG != True:
-                raise
-        except:
+        if not getattr(settings, "DEBUG", False):
             return response
 
-        ip_addr = request.META['REMOTE_ADDR']
         file_handle = ''
-
         debug_store_type = None
-        if hasattr(settings, 'DEBUG_STORE_HTML_STORETYPE'):
-            debug_store_type = getattr(settings, 'DEBUG_STORE_HTML_STORETYPE')
+        ip_addr = request.META['REMOTE_ADDR']
+
+        try:
+            debug_store_type = getattr(settings, 'DEBUG_STORE_HTML_STORE_TYPE')
+
+        except Exception:
+            msg = "Please Set DEBUG_STORE_HTML_STORE_TYPE to settings.py"
+            raise Warning(msg)
 
         if debug_store_type == 'file':
             """
-            Store response to specify `settings.DEBUG_STORE_HTML_FILE` file.
+            Store response to specify `settings.DEBUG_STORE_FILE_PREFIX` file.
             """
-            html_filename = getattr(settings, 'DEBUG_STORE_HTML_FILE')
+            html_filename = getattr(
+                settings, 'DEBUG_STORE_FILE_PREFIX', "debug_store")
+
             if html_filename is None:
                 return response
 
@@ -60,9 +62,10 @@ class HtmlStoreMiddleware(object):
         elif debug_store_type == 'cache':
             """
             Store response to Memcached (more than else)
-            (Hint: GoogleAppEngine can't open file.)
+            (Hint: Are you remenber? GoogleAppEngine can't open file.)
             """
             pass
+
         else:
             return response
 
@@ -73,7 +76,7 @@ class HtmlStoreMiddleware(object):
 
         res_str += '\n <!-- django_debug_html_store'
         res_str += '\n Dump to %s date: %s --> ' % (debug_store_type,
-                                                    datetime.now())
+                                                    now())
         if debug_store_type == 'file':
             file_handle.write(res_str)
             file_handle.flush()

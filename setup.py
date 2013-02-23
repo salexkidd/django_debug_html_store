@@ -24,6 +24,7 @@ Setup
 
 History
 -------
+0.0.2 (2013-2-23 by django sprintf 2013/02!)
 0.0.1 (2011-4-18)
 ~~~~~~~~~~~~~~~~~~
 * first release

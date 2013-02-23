@@ -45,12 +45,12 @@ Please put DEBUG flag to Django's settings.py
 
 Put middleware to MIDDLEWARE_CLASS
 -------------------------------------------
-Please put 'django_debug_html_store.middleware.HtmlStoreMiddleware' to settings.MIDDLEWARE_CLASS, Like this.
+Please put 'django_debug_html_store.middleware.DebugStoreMiddleware' to settings.MIDDLEWARE_CLASS, Like this.
 
 ::
 
     MIDDLEWARE_CLASSES = (
-        'django_debug_html_store.middleware.HtmlStoreMiddleware',
+        'django_debug_html_store.middleware.DebugStoreMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -59,7 +59,7 @@ Please put 'django_debug_html_store.middleware.HtmlStoreMiddleware' to settings.
     )
 
 .. warning::
-    You should be put under the 'django.middleware.gzip.GZipMiddleware'.
+ You should be put under the 'django.middleware.gzip.GZipMiddleware'.
 
 
 Put the url setting to urls.py
@@ -91,7 +91,15 @@ You can see same random number.
 ----------------------------
 Please browse http://[Project URL]/debug_response_html/read_response/[IP Address]/
 
+
+SETTING ATTR
+____________
++----------------------+------------------------------+
+| Settings Attr name   | Description                  |
++======================+==============================+
+
+
 LICENSE
 ____________
 
-Gunicorn is released under the MIT License.
+django_debug_html_store is released under the MIT License.
