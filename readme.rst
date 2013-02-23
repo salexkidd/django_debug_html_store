@@ -94,10 +94,13 @@ Please browse http://[Project URL]/debug_response_html/read_response/[IP Address
 
 SETTING ATTR
 ____________
-+----------------------+------------------------------+
-| Settings Attr name   | Description                  |
-+======================+==============================+
-
+==============================  =====================================  ==========================================
+Attribut Name                   Description                            example
+------------------------------  -------------------------------------  ------------------------------------------
+DEBUG_STORE_HTML_STORE_TYPE     should set file or cache               DEBUG_STORE_HTML_STORE_TYPE = "FILE"
+------------------------------  -------------------------------------  ------------------------------------------
+DEBUG_STORE_FILE_PREFIX         debug filename prefix(eg:debug_store)  DEBUG_STORE_FILE_PREFIX = "deubug_restore"
+==============================  =====================================  ==========================================
 
 LICENSE
 ____________
